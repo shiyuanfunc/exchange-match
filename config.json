@@ -1,0 +1,8 @@
+{
+  "nameSrv": [
+    "127.0.0.1:9876"
+  ],
+  "tradeConsumerGroup": "go-consumer",
+  "defaultConsumerGroup": "GO_CONSUMER",
+  "producerGroup": "GO_PRODUCER_GROUP"
+}
