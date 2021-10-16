@@ -14,7 +14,7 @@ type MatchOrderInfo struct {
 
 func BuildMatchOrder(sellOrder OrderInfo, buyOrder OrderInfo, dealAmount float64, dealPrice float64) MatchOrderInfo {
 	return MatchOrderInfo{
-		MatchId:     util.OrderId(),
+		MatchId:     util.NextId(),
 		BuyOrderId:  buyOrder.OrderId,
 		BuyUserId:   buyOrder.UserId,
 		SellOrderId: sellOrder.OrderId,
