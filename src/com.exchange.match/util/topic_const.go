@@ -1,6 +1,9 @@
 package util
 
-var TradeData string = "contract_trade_data"
+var TradeData = "contract_trade_data"
+
+// 交易下单MQ
+var TradeContractOrder = "trade_contract_order"
 
 func GetOrderTopic() string {
 	orderTopic := "Order_topic"

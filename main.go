@@ -20,6 +20,9 @@ func init() {
 }
 
 func main() {
+	// 启动统计
+	go stat()
+
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, syscall.SIGUSR1, syscall.SIGUSR2, syscall.SIGTERM)
 	// 阻塞 主线程
@@ -96,6 +99,7 @@ func stat() {
 	for range ticker.C {
 		nowCount := service.GetTotalMatched()
 		log.Println("[Stat] >>>>>> ", time.Now().Format("2006-01-02 15:04:05"), " diff ", nowCount-lastCount)
+		lastCount = nowCount
 	}
 	ticker.Stop()
 

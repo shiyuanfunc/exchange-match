@@ -1,5 +1,7 @@
 github.com/apache/rocketmq-client-go v0.0.0-20200107122544-7308bc943693 h1:3iagqBeOohxGWfez6P/uPNNZ6YNLfCRETmpCJSA5t0k=
 github.com/apache/rocketmq-client-go v0.0.0-20200107122544-7308bc943693/go.mod h1:QUr4Pi0vChnt8MsQl9Bm/voeKm3Hk0MV84Cugm1Snl0=
+github.com/apache/rocketmq-client-go/v2 v2.1.0 h1:3eABKfxc1WmS2lLTTbKMe1gZfZV6u1Sx9orFnOfABV0=
+github.com/apache/rocketmq-client-go/v2 v2.1.0/go.mod h1:oEZKFDvS7sz/RWU0839+dQBupazyBV7WX5cP6nrio0Q=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/emirpasic/gods v1.12.0 h1:QAUIPSaCu4G+POclxeqb3F+WPpdKqFGlw36+yOzGlrg=

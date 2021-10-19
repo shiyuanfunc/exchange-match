@@ -6,9 +6,10 @@ import (
 	"exchange-match/src/com.exchange.match/service"
 	"exchange-match/src/com.exchange.match/util"
 	"fmt"
-	"github.com/apache/rocketmq-client-go"
-	"github.com/apache/rocketmq-client-go/consumer"
-	"github.com/apache/rocketmq-client-go/primitive"
+	"github.com/apache/rocketmq-client-go/v2"
+	"github.com/apache/rocketmq-client-go/v2/consumer"
+	"github.com/apache/rocketmq-client-go/v2/primitive"
+	"github.com/apache/rocketmq-client-go/v2/rlog"
 	"log"
 	"os"
 )
@@ -17,12 +18,7 @@ var defaultClient rocketmq.PushConsumer
 
 func init() {
 	// RocketMQ 日志
-	err := os.Setenv("ROCKETMQ_GO_LOG_LEVEL", "warn")
-	if err != nil {
-		fmt.Println("设置系统变量", err)
-	}
-	getenv := os.Getenv("ROCKETMQ_GO_LOG_LEVEL")
-	fmt.Println("获取系统变量", getenv)
+	rlog.SetLogLevel("warn")
 	start()
 }
 
@@ -39,12 +35,12 @@ func start() {
 		return
 	}
 
-	initErr := client.Subscribe(util.TradeData, consumer.MessageSelector{}, func(ctx context.Context,
+	initErr := client.Subscribe(util.TradeContractOrder, consumer.MessageSelector{}, func(ctx context.Context,
 		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
 		for i := range msgs {
 			msg := msgs[i]
-			orderInfo, err := domain.ParseObject(msg.Body)
-			if err != nil {
+			orderInfo := domain.ConvertTradeOrder2OrderBookInfo(msg.Body)
+			if orderInfo == nil {
 				log.Println("消息解析对象异常 params: ", string(msg.Body), err)
 				return consumer.ConsumeSuccess, nil
 			}
