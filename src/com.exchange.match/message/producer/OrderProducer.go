@@ -2,6 +2,7 @@ package producer
 
 import (
 	"context"
+	"exchange-match/src/com.exchange.match/domain"
 	"exchange-match/src/com.exchange.match/util"
 	"fmt"
 	"github.com/apache/rocketmq-client-go/v2"
@@ -62,6 +63,12 @@ func sendMessage(message *primitive.Message) bool {
 	}
 	log.Println(util.ToJsonString(sync))
 	return true
+}
+
+// 发送合约单取消结果
+func SendContractOrderCancelResult(orderCancelResult *domain.ContractOrderCancelResult) {
+	message := primitive.NewMessage(util.TradeContractOrderCanceled, []byte(util.ToJsonString(*orderCancelResult)))
+	sendMessage(message)
 }
 
 func main() {

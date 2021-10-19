@@ -29,12 +29,15 @@ func start() {
 		consumer.WithNameServer(util.GetRocketNameSrv()),
 		consumer.WithConsumeFromWhere(consumer.ConsumeFromLastOffset),
 		consumer.WithConsumerModel(consumer.Clustering),
+		consumer.WithConsumeMessageBatchMaxSize(1),
+		consumer.WithInstance(util.GetConsumerGroup()),
 	)
 	if err != nil {
 		fmt.Println("consumer init error >>> ", err)
 		return
 	}
 
+	// 合约下单
 	initErr := client.Subscribe(util.TradeContractOrder, consumer.MessageSelector{}, func(ctx context.Context,
 		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
 		for i := range msgs {
@@ -53,6 +56,10 @@ func start() {
 		fmt.Println("consumer sub error >>> ", initErr)
 		os.Exit(-1)
 	}
+
+	// 合约单取消
+	_ = client.Subscribe(util.TradeContractOrderCancelReq, consumer.MessageSelector{}, handlerCancelOrder)
+
 	err = client.Start()
 	if err != nil {
 		fmt.Println("consumer start error >>> ", err)

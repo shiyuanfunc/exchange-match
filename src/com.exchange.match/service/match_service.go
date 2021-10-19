@@ -172,6 +172,7 @@ func GetTotalMatched() int {
 }
 
 // 取消委托单
+// false 代表取消失败; true代表取消成功
 func CancelOrder(orderId int64) bool {
 	_, loaded := orderMap.LoadOrStore(orderId, orderId)
 	if loaded {
