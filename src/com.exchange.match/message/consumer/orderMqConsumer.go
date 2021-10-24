@@ -40,6 +40,8 @@ func start() {
 	// 合约下单
 	initErr := client.Subscribe(util.TradeContractOrder, consumer.MessageSelector{}, func(ctx context.Context,
 		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+
+		log.Println("received contract order >>>>> ")
 		for i := range msgs {
 			msg := msgs[i]
 			orderInfo := domain.ConvertTradeOrder2OrderBookInfo(msg.Body)
